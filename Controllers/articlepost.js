@@ -1,5 +1,5 @@
 const handleArticlepost = (req,res, db) => {
-	const { firstname, lastname, email, latitude, longitude, articletitle, tag, article, url } = req.body;
+	const { firstname, lastname, email, latitude, longitude, articletitle, tag, article } = req.body;
 	if (!firstname || !lastname || !email || !latitude || !longitude || !tag || !articletitle || !article){
 		return res.status(400).json('incorrect form submission');
 	}
@@ -13,7 +13,6 @@ const handleArticlepost = (req,res, db) => {
 		tag: tag,
 		article: article,
 		posted: new Date(),
-		url: url
 	}).then(console.log)
 	res.json("posted")
 }
