@@ -17,10 +17,8 @@ const reportarticle = require('./Controllers/reportarticle');
 const db = knex({ 
 	client:'pg',
 	connection:{
-		host: '127.0.0.1',
-		user:'joshuaallday',
-		password:'',
-		database:'ElseWhereProject'
+		connectionString: process.env.DATABASE_URL,
+		ssl: true,
 	}
 })
 
