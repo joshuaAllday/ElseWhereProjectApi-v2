@@ -7,7 +7,7 @@ const handleArticlesfetch = (req,res,db) => {
 			  'articletitle',
 			  'tag',
 			  'article'
-	).from('version2')
+	).from('articlepost')
 	.then(article => {
 		res.json(article);
 	})

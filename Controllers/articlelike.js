@@ -1,6 +1,6 @@
 handleArticlelike = (req,res,db) =>{
 	const { id } = req.body;
-	db('version2').where('id', '=', id)
+	db('articlepost').where('id', '=', id)
 	.increment('likes', 1)
 	.returning('likes')
 	.then(likes => {

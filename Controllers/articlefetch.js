@@ -1,6 +1,6 @@
 const handleArticlefetch = (req,res,db) => {
 	const { id } = req.params;
-	db.select('*').from('version2').where({id})
+	db.select('*').from('articlepost').where({id})
 	.then(article => {
 		if (article.length){
 			res.json(article[0])

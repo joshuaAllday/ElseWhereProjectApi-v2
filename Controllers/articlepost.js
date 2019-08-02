@@ -3,7 +3,7 @@ const handleArticlepost = (req,res, db) => {
 	if (!firstname || !lastname || !email || !latitude || !longitude || !tag || !articletitle || !article){
 		return res.status(400).json('incorrect form submission');
 	}
-	db('version2').insert({
+	db('articlepost').insert({
 		firstname: firstname,
 		lastname: lastname,
 		email: email, 

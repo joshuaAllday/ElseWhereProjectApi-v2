@@ -1,6 +1,6 @@
 const handleArticleedit = (req,res,db) => {
 	const { id, firstname, lastname, articletitle, tag, article, longitude, latitude} = req.body;
-	db('version2').where('id', '=', id)
+	db('articlepost').where('id', '=', id)
 	.update({
 		articletitle: articletitle,
 		firstname: firstname,
