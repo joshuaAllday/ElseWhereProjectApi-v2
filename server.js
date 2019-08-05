@@ -14,6 +14,8 @@ const articlefetch = require('./Controllers/articlefetch');
 const articlelike = require('./Controllers/articlelike');
 const editarticle = require('./Controllers/editarticle');
 const reportarticle = require('./Controllers/reportarticle');
+const signout = require('./Controllers/signout');
+const auth = require('./Controllers/authorization');
 
 const db = knex({ 
 	client:'pg',
@@ -37,13 +39,15 @@ app.put('/update', (req,res) => {articlelike.handleArticlelike(req,res,db)});
 
 app.post('/register', (req,res) => {register.handleRegister(req,res,db,bcrypt)});
 
-app.post('/signin', (req,res) => {signin.handleSignin(req,res,db,bcrypt)});
+app.post('/signin', (req,res) => {signin.signinAuthentication(db,bcrypt, req,res)});
 
 app.post('/post', (req,res) => {articlepost.handleArticlepost(req,res,db)});
 
 app.post('/report', (req,res) => { reportarticle.handleReportarticle(req,res,nodemailer)});
 
+app.delete('/signout', auth.requireAuth, (req,res) => {signout.signOutAuthentication(req,res)});
+
 app.listen(process.env.PORT || 3000, () => {
-	console.log(`app is running on port ${process.env.PORT}`)
+	console.log(`app is running on port ${process.env.PORT || 3000}`)
 })
 

@@ -10,7 +10,7 @@ const handleArticlesfetch = (req,res,db) => {
 	).from('articlepost')
 	.then(article => {
 		res.json(article);
-	})
+	}).catch(err => res.status(400).json('error getting profile'))
 }
 
 module.exports = {
