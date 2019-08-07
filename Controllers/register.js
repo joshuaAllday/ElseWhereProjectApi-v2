@@ -6,11 +6,10 @@ const handleRegister = (req,res, db, bcrypt) => {
 			hash:hash,
 			username: username
 		})
-		.returning('*')
-		.then(
-			res.send("success")
-		)
-}
+		.returning('username')
+		.then(res.send({success:'true'}))
+		.catch(error => res.send(error.message))
+};
 
 module.exports = {
 	handleRegister: handleRegister

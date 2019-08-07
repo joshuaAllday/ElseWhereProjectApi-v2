@@ -14,7 +14,7 @@ const handleArticlepost = (req,res, db) => {
 		article: article,
 		posted: new Date(),
 	}).then(console.log)
-	res.json("posted")
+	res.json({success: true})
 }
 
 module.exports = {

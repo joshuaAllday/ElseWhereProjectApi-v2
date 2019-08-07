@@ -6,7 +6,7 @@ const signOutAuthentication = (req,res) => {
 		if (err || !reply){
 			return res.status(400).json('Unauthorized')
 		}
-		return res.json({response: reply})
+		return res.json({response: reply, success: 'true'})
 	}); 
 };
 

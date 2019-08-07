@@ -37,15 +37,17 @@ app.put('/editarticle', (req,res) => {editarticle.handleArticleedit(req,res,db)}
 
 app.put('/update', (req,res) => {articlelike.handleArticlelike(req,res,db)});
 
-app.post('/register', (req,res) => {register.handleRegister(req,res,db,bcrypt)});
-
-app.post('/signin', (req,res) => {signin.signinAuthentication(db,bcrypt, req,res)});
-
 app.post('/post', (req,res) => {articlepost.handleArticlepost(req,res,db)});
 
 app.post('/report', (req,res) => { reportarticle.handleReportarticle(req,res,nodemailer)});
 
+// sigin in, out and register routes
+
+app.post('/signin', (req,res) => {signin.signinAuthentication(db,bcrypt, req,res)});
+
 app.delete('/signout', auth.requireAuth, (req,res) => {signout.signOutAuthentication(req,res)});
+
+app.post('/register', auth.requireAuth, (req,res) => {register.handleRegister(req,res,db,bcrypt)});
 
 app.listen(process.env.PORT || 3000, () => {
 	console.log(`app is running on port ${process.env.PORT || 3000}`)
