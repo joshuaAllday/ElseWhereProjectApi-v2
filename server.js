@@ -33,10 +33,11 @@ const corsOptions = {
 	}
 }
 
-app.use(cors(corsOptions));
+
 const app = express();
 app.use(bodyParser.json());
 app.use(morgan('combined'));
+app.use(cors(corsOptions));
 
 app.get('/', (req,res) => {res.send("it's working now")});
 
