@@ -13,9 +13,14 @@ const handleArticlepost = (req,res, db) => {
 		tag: tag,
 		article: article,
 		posted: new Date(),
-	}).then(console.log)
-	res.json({success: true})
-}
+	})
+	.returning("*")
+	.then(article => {
+		console.log(article)
+		res.json({success: true, article: article[0]})
+	})
+	.catch(err => res.status(400).json('error posting article'))
+};
 
 module.exports = {
 	handleArticlepost: handleArticlepost
