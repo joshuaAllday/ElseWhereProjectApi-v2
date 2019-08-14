@@ -1,41 +1,37 @@
 const handleReportarticle = (req,res, nodemailer) => {
-	const { id, name, title, email, comment} = req.body;
-	if (!id || !name || !title || !email || !comment){
+	const { id, firstname, lastname, articletitle} = req.body;
+	if (!id || !firstname || !lastname || !articletitle ){
 		return res.status(400).json('incorrect form submission');
 	}
 	const output = `
 		<p> Reported Article </p>
 		<ul>
 			<li> id: ${id} </li>
-			<li> name: ${name} </li>
-			<li> articletitle: ${title} </li>
-			<li> name: ${email} </li>
+			<li> name: ${firstname} ${lastname} </li>
+			<li> articletitle: ${articletitle} </li>
 		</ul>
-		<p> Comment: ${comment}</p>
 	`;
 	let transporter = nodemailer.createTransport({
 	 service: 'gmail',
 	 auth: {
-	        user: 'ja15931@my.bristol.ac.uk',
-	        pass: 'JATaiga123!'
+	        user: process.env.EMAIL_ADDRESS,
+	        pass: process.env.EMAIL_PASSWORD
 	    }
 	});
 
 	let mailOptions ={
-		from: 'ja15931@gmail.com',
-		to: 'joshallday@icloud.com',
-		subject: 'test number 1 ',
+		from: process.env.EMAIL_ADDRESS,
+		to: process.env.EMAIL_ADDRESS2,
+		subject: 'REPORTED ARTICLE ',
 		text: 'Reported Article',
 		html: output
 	};
 
 	transporter.sendMail(mailOptions, function(error,info){
 		if (error){
-			res.json("error");
-		} else {
-			console.log('Email sent:' + info);
+			res.status(400).json('Error reporting article')
 		}
-		res.json("posted")
+		res.send({success: true})
 	})
 }
 

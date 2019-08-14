@@ -17,27 +17,18 @@ const reportarticle = require('./Controllers/reportarticle');
 const signout = require('./Controllers/signout');
 const auth = require('./Controllers/authorization');
 
+if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+
 const db = knex({ 
 	client:'pg',
 	connection: process.env.POSTGRES_URI
 })
 
-const whitelist = ['http://localhost:3001']
-const corsOptions = {
-	origin: function (origin, callback) {
-	    if (whitelist.indexOf(origin) !== -1) {
-	      callback(null, true)
-	    } else {
-	      callback(new Error('Not allowed by CORS'))
-	    }
-	}
-}
-
-
 const app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('combined'));
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.get('/', (req,res) => {res.send("it's working now")});
 
